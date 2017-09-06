@@ -18,18 +18,25 @@ public class LoginDAOImpl implements LoginDAO {
 			session = ConnectionUtils.getInstance();
 			tx = session.beginTransaction();
 			id = (Long) session.save(entity);
-
+			tx.commit();
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+		} finally {
+			if (null != session && session.isOpen()) {
+				tx.rollback();
+				session.close();
+			}
 		}
 		System.out.println("save() - end");
 		return id;
 	}
 
-	public static void main(String [] args){
+	public static void main(String[] args) {
 		LoginDAOImpl obj = new LoginDAOImpl();
-		UserDetails entity = new UserDetails(null,"vishnu","Secure*123","vishnu.awasthi.dev9@gmail.com");
-		Long id =obj.save(entity);
-		System.out.println("ID : "+id);
+		UserDetails entity = new UserDetails(null, "vishnu", "Secure*123", "vishnu.awasthi.dev9@gmail.com");
+		Long id = obj.save(entity);
+		System.out.println("ID : " + id);
 	}
 }

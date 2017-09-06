@@ -19,10 +19,10 @@ public class ConnectionUtils {
 	 */
 
 	static {
-		//.addPackage("com.app.entity")
 		SESSION_FACTORY = (SessionFactory) new Configuration()
-		.addAnnotatedClass(UserDetails.class)
-				.addProperties(getDataSourcePropety()).buildSessionFactory();
+											.addAnnotatedClass(UserDetails.class)
+											.addProperties(getDataSourcePropety())
+											.buildSessionFactory();
 	}
 
 	public static Session getInstance() {
@@ -36,8 +36,7 @@ public class ConnectionUtils {
 		prop.setProperty("hibernate.connection.password", "root");
 		prop.setProperty("hibernate.show_sql", "true");
 		prop.setProperty("hibernate.hbm2ddl.auto", "create");
-		prop.setProperty("dialect", "org.hibernate.dialect.MySQLDialect");
-
+		prop.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		return prop;
 
 	}
